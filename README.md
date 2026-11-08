@@ -1,2 +1,3 @@
-# southbayenvelopes
-South Bay Envelope Co. website
+# South Bay Envelope Co.
+
+Website for southbayenvelopes.com, served by GitHub Pages.
