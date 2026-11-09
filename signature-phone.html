@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Copy email signature</title>
+<style>
+ body{margin:0;padding:28px 20px;font-family:-apple-system,Helvetica,Arial,sans-serif;color:#16191D;background:#fff}
+ h1{font-size:20px;margin:0 0 6px}
+ p{font-size:15px;color:#59606A;margin:0 0 18px;line-height:1.45}
+ button{display:block;width:100%;padding:16px;font-size:17px;font-weight:700;color:#fff;background:#025A9F;border:0;border-radius:10px}
+ #msg{margin-top:12px;font-weight:600;color:#025A9F;min-height:22px}
+ .preview{margin-top:26px;padding:18px 0;border-top:1px solid #ddd;overflow-x:auto}
+</style>
+</head>
+<body>
+<h1>South Bay Envelope Co. signature</h1>
+<p>Tap the button, then paste into Settings &rarr; Apps &rarr; Mail &rarr; Signature. Shake your phone right after pasting and tap Undo to keep the formatting.</p>
+<button id="copy" type="button">Copy signature</button>
+<div id="msg" role="status"></div>
+<div class="preview" id="sig"><table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:Helvetica,Arial,sans-serif;color:#16191D;"> <tr> <td style="padding:0 18px 0 0;vertical-align:middle;border-right:2px solid #F7AF03;"> <a href="https://southbayenvelopes.com" style="text-decoration:none;"><img src="https://southbayenvelopes.com/images/logo-email.png" width="180" height="53" alt="South Bay Envelope Co." style="display:block;border:0;width:180px;height:53px;"></a> </td> <td style="padding:0 0 0 18px;vertical-align:middle;"> <div style="font-size:15px;line-height:20px;font-weight:bold;color:#16191D;">Danny G.</div> <div style="font-size:13px;line-height:18px;color:#025A9F;font-weight:bold;padding:0 0 6px 0;">South Bay Envelope Co.</div> <div style="font-size:13px;line-height:19px;color:#16191D;"> <a href="tel:+14243033770" style="color:#16191D;text-decoration:none;">(424) 303-3770</a> &nbsp;|&nbsp; <a href="mailto:orders@southbayenvelopes.com" style="color:#025A9F;text-decoration:none;">orders@southbayenvelopes.com</a> </div> <div style="font-size:13px;line-height:19px;"> <a href="https://southbayenvelopes.com" style="color:#025A9F;text-decoration:none;font-weight:bold;">southbayenvelopes.com</a> </div> </td> </tr> </table></div>
+<script>
+document.getElementById('copy').addEventListener('click', async function(){
+  var html=document.getElementById('sig').innerHTML;
+  var text="Danny G.\nSouth Bay Envelope Co.\n(424) 303-3770 | orders@southbayenvelopes.com\nsouthbayenvelopes.com";
+  var msg=document.getElementById('msg');
+  try{
+    await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([text],{type:'text/plain'})})]);
+    msg.textContent='Copied. Now paste it in Mail settings.';
+  }catch(e){
+    var r=document.createRange(); r.selectNodeContents(document.getElementById('sig'));
+    var s=window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    try{document.execCommand('copy'); msg.textContent='Copied. Now paste it in Mail settings.';}
+    catch(e2){msg.textContent='Copy didn\'t work. The signature is selected below; tap Copy.';}
+  }
+});
+</script>
+</body>
+</html>
